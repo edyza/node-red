@@ -24,9 +24,9 @@ RED.comms = (function() {
     var pendingAuth = false;
     var reconnectAttempts = 0;
 
-    function connectWS() {
+    function connectWS(_port) {
         var path = location.hostname;
-        var port = location.port;
+        var port = 1880 || location.port;
         if (port.length !== 0) {
             path = path+":"+port;
         }

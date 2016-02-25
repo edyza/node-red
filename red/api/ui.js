@@ -21,10 +21,10 @@ var theme = require("./theme");
 
 var Mustache = require("mustache");
 
-var icon_paths = [path.resolve(__dirname + '/../../public/icons')];
+var icon_paths = [path.resolve(__dirname + '/../../build/public/icons')];
 var iconCache = {};
 //TODO: create a default icon
-var defaultIcon = path.resolve(__dirname + '/../../public/icons/arrow-in.png');
+var defaultIcon = path.resolve(__dirname + '/../../build/public/icons/arrow-in.png');
 var templateDir = path.resolve(__dirname+"/../../editor/templates");
 var editorTemplate;
 
@@ -74,5 +74,5 @@ module.exports = {
     editor: function(req,res) {
         res.send(Mustache.render(editorTemplate,theme.context()));
     },
-    editorResources: express.static(__dirname + '/../../public')
+    editorResources: express.static(__dirname + '/../../build/public')
 };

@@ -85,7 +85,7 @@ describe("ui api", function() {
         }
 
         it('returns the default icon when getting an unknown icon', function(done) {
-            var defaultIcon = fs.readFileSync(path.resolve(__dirname+'/../../../public/icons/arrow-in.png'));
+            var defaultIcon = fs.readFileSync(path.resolve(__dirname+'/../../../build/public/icons/arrow-in.png'));
             request(app)
                 .get("/icons/youwonthaveme.png")
                 .expect("Content-Type", /image\/png/)
@@ -102,7 +102,7 @@ describe("ui api", function() {
 
         });
         it('returns a known icon', function(done) {
-            var injectIcon = fs.readFileSync(path.resolve(__dirname+'/../../../public/icons/inject.png'));
+            var injectIcon = fs.readFileSync(path.resolve(__dirname+'/../../../build/public/icons/inject.png'));
             request(app)
                 .get("/icons/inject.png")
                 .expect("Content-Type", /image\/png/)

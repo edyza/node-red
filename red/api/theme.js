@@ -54,11 +54,11 @@ function serveFile(app,baseUrl,file) {
 }
 
 module.exports = {
-    init: function(runtime) {
-        var settings = runtime.settings;
+    init: function(runtime, _settings, _version) {
+        var settings = _settings || runtime.settings;
         themeContext = clone(defaultContext);
-        if (runtime.version) {
-            themeContext.version = runtime.version();
+        if (_version || runtime.version) {
+            themeContext.version = _version || runtime.version();
         }
         themeSettings = null;
         theme = settings.editorTheme;

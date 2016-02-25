@@ -127,11 +127,11 @@ module.exports = function(grunt) {
                   "editor/js/ui/touch/radialMenu.js",
                   "editor/js/ui/typedInput.js"
               ],
-              dest: "public/red/red.js"
+              dest: "build/public/red/red.js"
             },
             vendor: {
                 files: {
-                    "public/vendor/vendor.js": [
+                    "build/public/vendor/vendor.js": [
                         "editor/vendor/jquery/js/jquery-1.11.3.min.js",
                         "editor/vendor/bootstrap/js/bootstrap.min.js",
                         "editor/vendor/jquery/js/jquery-ui-1.10.3.custom.min.js",
@@ -141,7 +141,7 @@ module.exports = function(grunt) {
                         "editor/vendor/d3/d3.v3.min.js",
                         "editor/vendor/i18next/i18next.min.js"
                     ],
-                    "public/vendor/vendor.css": [
+                    "build/public/vendor/vendor.css": [
                         "editor/vendor/orion/built-editor.css"
                         // TODO: resolve relative resource paths in
                         //       bootstrap/FA/jquery
@@ -152,7 +152,7 @@ module.exports = function(grunt) {
         uglify: {
             build: {
                 files: {
-                    'public/red/red.min.js': 'public/red/red.js'
+                    'build/public/red/red.min.js': 'build/public/red/red.js'
                 }
             }
         },
@@ -162,11 +162,11 @@ module.exports = function(grunt) {
                     outputStyle: 'compressed'
                 },
                 files: [{
-                    dest: 'public/red/style.min.css',
+                    dest: 'build/public/red/style.min.css',
                     src: 'editor/sass/style.scss'
                 },
                 {
-                    dest: 'public/vendor/bootstrap/css/bootstrap.min.css',
+                    dest: 'build/public/vendor/bootstrap/css/bootstrap.min.css',
                     src: 'editor/vendor/bootstrap/css/bootstrap.css'
                 }]
             }
@@ -183,23 +183,23 @@ module.exports = function(grunt) {
         attachCopyright: {
             js: {
                 src: [
-                    'public/red/red.min.js'
+                    'build/public/red/red.min.js'
                 ]
             },
             css: {
                 src: [
-                    'public/red/style.min.css'
+                    'build/public/red/style.min.css'
                 ]
             }
         },
         clean: {
             build: {
                 src: [
-                    "public/red",
-                    "public/index.html",
-                    "public/favicon.ico",
-                    "public/icons",
-                    "public/vendor"
+                    "build/public/red",
+                    "build/public/index.html",
+                    "build/public/favicon.ico",
+                    "build/public/icons",
+                    "build/public/vendor"
                 ]
             },
             release: {
@@ -260,7 +260,7 @@ module.exports = function(grunt) {
                     cwd: 'editor/images',
                     src: '**',
                     expand: true,
-                    dest: 'public/red/images/'
+                    dest: 'build/public/red/images/'
                 },
                 {
                     cwd: 'editor/vendor',
@@ -272,18 +272,18 @@ module.exports = function(grunt) {
                         'font-awesome/**'
                     ],
                     expand: true,
-                    dest: 'public/vendor/'
+                    dest: 'build/public/vendor/'
                 },
                 {
                     cwd: 'editor/icons',
                     src: '**',
                     expand: true,
-                    dest: 'public/icons/'
+                    dest: 'build/public/icons/'
                 },
                 {
                     expand: true,
                     src: ['editor/index.html','editor/favicon.ico'],
-                    dest: 'public/',
+                    dest: 'build/public/',
                     flatten: true
                 }]
             },
@@ -301,7 +301,7 @@ module.exports = function(grunt) {
                         'nodes/*.demo',
                         'nodes/core/**',
                         'red/**',
-                        'public/**',
+                        'build/public/**',
                         'editor/templates/**',
                         'bin/**'
                     ],
