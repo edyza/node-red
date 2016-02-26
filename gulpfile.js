@@ -17,6 +17,7 @@ gulp.task('mustache', ['grunt-build'], function () {
         settings = theme.context();
         settings.page.title = 'Edyza';
         settings.header.title = 'Edyza';
+        settings.asset.red = 'red/red.js';
     }
 
     return gulp.src('editor/templates/index.mst')
@@ -30,6 +31,7 @@ var server;
 gulp.task('start-simple-server', function () {
     if (server) {
         server.stop();
+        server = require('./simple-server');
     } else {
         server = require('./simple-server');
     }
@@ -38,8 +40,14 @@ gulp.task('start-simple-server', function () {
     server.start();
 });
 
+gulp.task('watch', function () {
+    gulp.watch(['static-api/**',
+                'simple-server.js'
+            ], ['start-simple-server']);
+});
+
 gulp.task('build', ['mustache']);
 
-gulp.task('serve', ['start-simple-server'])
+gulp.task('serve', ['start-simple-server', 'watch'])
 
 gulp.task('default', ['build']);

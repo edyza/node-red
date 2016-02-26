@@ -57,7 +57,7 @@
 
         "error": "<strong>Error</strong>: __message__",
         "errors": {
-            "lostConnection": "Lost connection to server",
+            "lostConnection": "Lost debug connection to server",
             "cannotAddSubflowToItself": "Cannot add subflow to itself",
             "cannotAddCircularReference": "Cannot add subflow - circular reference detected"
         }
