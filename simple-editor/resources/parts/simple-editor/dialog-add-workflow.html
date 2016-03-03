@@ -1,0 +1,49 @@
+<md-dialog aria-label="Add Workflow" ng-cloak>
+    <form layout="column">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add Workflow</h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-content layout="row" layout-padding>
+                <md-input-container>
+                    <label>Name</label>
+                    <input ng-model="workflows.building.name" type="text">
+                </md-input-container>
+                <md-input-container>
+                    <label>Icon</label>
+                    <input ng-model="workflows.building.icon" type="text">
+                </md-input-container>
+            </md-content>
+            <div layout="row">
+                <md-list ng-cloak ng-repeat="type in ['source', 'logic', 'endpoint']">
+                    <md-subheader class="md-no-sticky">{{type | capitalize}}</md-subheader>
+                    <md-list-item style="height: 20px;">
+                        <md-icon md-svg-icon="magnify"></md-icon>
+                        <p>
+                            <md-input-container>
+                                <label>Search</label>
+                                <input ng-model="search[type]" type="text">
+                            </md-input-container>
+                        </p>
+                    </md-list-item>
+                    <md-list-item ng-repeat="node in workflows.parts[type + 's']" ng-hide="search[type] && node.name.toLowerCase().indexOf(search[type].toLowerCase()) < 0" ng-click="assign(type, node.id)" ng-selected="node.id === workflows.building[type]">
+                        <md-icon><workflow-icon rep="node.icon"></workflow-icon></md-icon>
+                        <p>{{node.name}}</p>
+                    </md-list-item>
+                </md-list>
+            </div>
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button ng-click="cancel()">
+                    Cancel
+                </md-button>
+                <md-button ng-click="add(workflows.building)" style="margin-right:20px;">
+                    Add
+                </md-button>
+            </md-dialog-actions>
+        </md-dialog-content>
+    </form>
+</md-dialog>

@@ -1,0 +1,87 @@
+<html ng-app="Edyza">
+    <head>
+        <title><%= title %></title>
+        <meta content="<%= title %>" name="<%= title %>">
+
+        <%- include templates/common/header.ejs %>
+    </head>
+    <body ng-controller="SimpleEditorController as ctrlEditor" layout="column">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Menu" ng-hide="ctrlEditor.lockSideNav()" ng-click="ctrlEditor.toggleNavDrawer()">
+                    <md-tooltip>Menu</md-tooltip>
+                    <md-icon md-svg-icon="menu"></md-icon>
+                </md-button>
+                <h2>
+                    <span>Edyza Simple Editor</span>
+                </h2>
+                <span flex></span>
+                <md-button class="md-icon-button" aria-label="Favorite">
+                    <md-icon md-svg-icon="heart"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="More">
+                    <md-icon md-svg-icon="dots-vertical"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <section layout="row" flex="">
+            <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="ctrlEditor.lockSideNav()">
+                <md-list ng-cloak>
+                    <md-subheader class="md-no-sticky">Workflows</md-subheader>
+                    <md-list-item ng-repeat="item in ctrlEditor.workflows.built" ng-click="ctrlEditor.workflows.editing = $index" ng-selected="$index === ctrlEditor.workflows.editing">
+                        <md-icon><workflow-icon rep="item.icon"></workflow-icon></md-icon>
+                        <p>{{item.name}}</p>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                    <md-subheader class="md-no-sticky">Endpoints</md-subheader>
+
+                    <md-divider></md-divider>
+                    <md-list-item ng-click="alert('settings')">
+                        <md-icon md-svg-icon="settings"></md-icon>
+                        <p>Settings</p>
+                    </md-list-item>
+                </md-list>
+            </md-sidenav>
+            <md-content flex layout-padding>
+                <div ng-if="ctrlEditor.workflows.editing === undefined">
+                    Select or create a workflow.
+                </div>
+                <div ng-if="ctrlEditor.workflows.editing !== undefined">
+                    <md-content layout="row" layout-padding>
+                        <md-input-container>
+                            <label>Name</label>
+                            <input ng-model="ctrlEditor.workflows.built[ctrlEditor.workflows.editing].name" type="text">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Icon</label>
+                            <input ng-model="ctrlEditor.workflows.built[ctrlEditor.workflows.editing].icon" type="text">
+                        </md-input-container>
+                    </md-content>
+                    <div layout="row">
+                        <md-list ng-cloak ng-repeat="type in ['source', 'logic', 'endpoint']">
+                            <md-subheader class="md-no-sticky">{{type | capitalize}}</md-subheader>
+                            <md-list-item style="height: 20px;">
+                                <md-icon md-svg-icon="magnify"></md-icon>
+                                <p>
+                                    <md-input-container>
+                                        <label>Search</label>
+                                        <input ng-model="search[type]" type="text">
+                                    </md-input-container>
+                                </p>
+                            </md-list-item>
+                            <md-list-item ng-repeat="node in ctrlEditor.workflows.parts[type + 's']" ng-hide="search[type] && node.name.toLowerCase().indexOf(search[type].toLowerCase()) < 0" ng-click="assign(type, node.id)" ng-selected="node.id === ctrlEditor.workflows.built[ctrlEditor.workflows.editing][type]">
+                                <md-icon><workflow-icon rep="node.icon"></workflow-icon></md-icon>
+                                <p>{{node.name}}</p>
+                            </md-list-item>
+                        </md-list>
+                    </div>
+                </div>
+
+                <md-button class="md-fab" aria-label="Create Workflow" ng-click="ctrlEditor.workflows.add($event);">
+                    <md-tooltip>Create Workflow</md-tooltip>
+                    <md-icon md-svg-src="plus"></md-icon>
+                </md-button>
+            </md-content>
+        </section>
+    </body>
+</html>

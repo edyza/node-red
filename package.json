@@ -8,9 +8,9 @@
     "type": "git",
     "url": "https://github.com/node-red/node-red.git"
   },
-  "main": "red/red.js",
+  "main": "gulpfile.js",
   "scripts": {
-    "start": "node red.js",
+    "start": "gulp",
     "test": "./node_modules/.bin/grunt"
   },
   "bin": {
@@ -45,6 +45,9 @@
     "follow-redirects": "0.0.7",
     "fs-extra": "0.26.5",
     "fs.notify": "0.0.4",
+    "gulp-bower": "0.0.13",
+    "gulp-ejs": "^2.1.1",
+    "gulp-sass": "^2.2.0",
     "i18next": "1.10.6",
     "is-utf8": "0.2.1",
     "media-typer": "0.3.0",

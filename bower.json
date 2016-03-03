@@ -1,0 +1,44 @@
+{
+  "name": "node-red-editor",
+  "description": "A visual tool for wiring the Internet of Things",
+  "main": "gulpfile.js",
+  "authors": [
+    "Nick O'Leary",
+    "Dave Conway-Jones",
+    "Louis Orleans"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "editor",
+    "messaging",
+    "iot",
+    "ibm",
+    "flow"
+  ],
+  "homepage": "https://github.com/edyza/node-red-editor",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./build/public/resources/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-material": "~0.11.4",
+    "angular-messages": "~1.4.7",
+    "angular-password": "~1.0.1",
+    "angular-resource": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "angular-sanitize": "~1.4.7",
+    "gsap": "greensock-js#^1.10.2",
+    "MaterialCSS": "~0.0.11",
+    "mdi": "~1.3.41"
+  },
+  "resolutions": {
+    "angular": "1.5.0"
+  }
+}
