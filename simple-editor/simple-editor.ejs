@@ -72,19 +72,20 @@
                             <label>Name</label>
                             <input ng-model="ctrlEditor.workflows.built[ctrlEditor.workflows.editing].name" type="text">
                         </md-input-container>
-                        <md-input-container>
+                        <icon-selector icon="ctrlEditor.workflows.built[ctrlEditor.workflows.editing].icon"></icon-selector>
+                        <!-- <md-input-container>
                             <label>Icon</label>
                             <input ng-model="ctrlEditor.workflows.built[ctrlEditor.workflows.editing].icon" type="text">
-                        </md-input-container>
+                        </md-input-container> -->
                     </md-content>
                     <div layout="row">
                         <div ng-repeat="type in ['source', 'logic', 'endpoint']" layout="row">
                             <div layout="column">
                                 <span flex></span>
                                 <div ng-if="type === 'source'">When</div>
-                                <div ng-if="type === 'logic'">do</div>
-                                <div ng-if="type === 'endpoint'">to</div>
-                                →
+                                <div ng-if="type === 'logic'">if</div>
+                                <div ng-if="type === 'endpoint'">do</div>
+                                <md-icon md-svg-src="arrow-right" style="height: 18px;"></md-icon>
                                 <span flex></span>
                             </div>
                             <div layout="column">
@@ -99,9 +100,10 @@
                                 </md-list-item>
                                 <md-list ng-cloak>
                                     <md-subheader class="md-no-sticky">{{type | capitalize}}</md-subheader>
-                                    <md-list-item ng-repeat="node in ctrlEditor.workflows.parts[type + 's']" ng-hide="search[type] && node.name.toLowerCase().indexOf(search[type].toLowerCase()) < 0" ng-click="assign(type, node.id)" ng-selected="node.id === ctrlEditor.workflows.built[ctrlEditor.workflows.editing][type]">
+                                    <md-list-item ng-repeat="node in ctrlEditor.workflows.parts[type + 's'] | orderBy: 'name'" ng-hide="search[type] && node.name.toLowerCase().indexOf(search[type].toLowerCase()) < 0" ng-click="assign(type, node.id)" ng-selected="node.id === ctrlEditor.workflows.built[ctrlEditor.workflows.editing][type]">
                                         <md-icon><workflow-icon rep="node.icon"></workflow-icon></md-icon>
                                         <p>{{node.name}}</p>
+                                        <simple-node-editor node="node"></simple-node-editor>
                                     </md-list-item>
                                 </md-list>
                             </div>
@@ -109,10 +111,20 @@
                     </div>
                 </div>
 
-                <md-button class="md-fab" aria-label="Create Workflow" ng-click="ctrlEditor.workflows.add($event);">
-                    <md-tooltip>Create Workflow</md-tooltip>
-                    <md-icon md-svg-src="plus"></md-icon>
-                </md-button>
+                <md-fab-speed-dial md-open="fabSpeedDial.open" md-direction="up" ng-class="'md-scale'" ng-mouseenter="fabSpeedDial.open = true" ng-mouseleave="fabSpeedDial.open = false">
+                    <md-fab-trigger>
+                        <md-button ng-click="ctrlEditor.workflows.add($event);" aria-label="Create Workflow" class="md-fab">
+                            <md-tooltip md-direction="left">Create Workflow</md-tooltip>
+                            <md-icon md-svg-src="plus"></md-icon>
+                        </md-button>
+                    </md-fab-trigger>
+                    <md-fab-actions>
+                        <md-button ng-click="ctrlEditor.workflows.saveCredentials($event);" aria-label="Credentials" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="left">Add Credentials</md-tooltip>
+                            <md-icon md-svg-src="key" aria-label="Credentials" style="color: gray;"></md-icon>
+                        </md-button>
+                    </md-fab-actions>
+                </md-fab-speed-dial>
             </md-content>
         </section>
     </body>

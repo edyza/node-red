@@ -1,0 +1,17 @@
+<md-button ng-if="node.options.length > 1" ng-click="openNodeOptions($event)" class="md-icon-button" aria-label="Settings">
+    <md-icon md-svg-icon="settings"></md-icon>
+</md-button>
+<div ng-if="node.options.length === 1">
+    <md-input-container ng-if="node.options[0].type === 'spinner'" class="md-block" flex-gt-sm>
+        <label>{{node.options[0].name}}</label>
+        <md-select ng-model="node.options[0].value">
+            <md-option ng-repeat="choice in node.options[0].choices" value="{{choice.value}}">
+                {{choice.key}}
+            </md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container ng-if="node.options[0].type === 'text' || node.options[0].type === 'number'" class="md-block" flex-gt-sm>
+        <label>{{node.options[0].name}}</label>
+        <input ng-model="node.options[0].value" type="{{node.options[0].type}}" />
+    </md-input-container>
+</div>

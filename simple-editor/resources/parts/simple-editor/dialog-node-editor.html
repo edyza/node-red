@@ -1,0 +1,34 @@
+<md-dialog aria-label="{{node.name}} Options" ng-cloak>
+    <form layout="column">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{node.name}} Options</h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-content layout="column" layout-padding>
+                <div layout="column">
+                    <md-input-container ng-repeat="option in node.options" class="md-block">
+                        <label>{{option.name}}</label>
+                        <md-select ng-if="option.type === 'spinner'" ng-model="option.value">
+                            <md-option ng-repeat="choice in option.choices" value="{{choice.value}}">
+                                {{choice.key}}
+                            </md-option>
+                        </md-select>
+                        <input ng-if="option.type === 'text' || option.type === 'number'" ng-model="option.value" type="{{option.type}}" />
+                    </md-input-container>
+                </div>
+            </md-content>
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button ng-click="cancel()">
+                    Cancel
+                </md-button>
+                <md-button ng-click="save()" style="margin-right:20px;">
+                    Save
+                </md-button>
+            </md-dialog-actions>
+        </md-dialog-content>
+    </form>
+</md-dialog>
