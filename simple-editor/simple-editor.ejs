@@ -17,7 +17,7 @@
                 </h2>
                 <span flex></span>
                 <md-button class="md-icon-button" aria-label="Favorite">
-                    <md-icon md-svg-icon="heart"></md-icon>
+                    <md-icon md-svg-icon="share-variant"></md-icon>
                 </md-button>
 
                 <md-menu md-position-mode="target-right target" >
@@ -44,7 +44,7 @@
                     <md-list-item ng-repeat="item in ctrlEditor.workflows.built | orderBy: ['-enabled', 'name']" ng-if="item.type === 'workflow'" ng-click="ctrlEditor.workflows.editing = $index" ng-selected="$index === ctrlEditor.workflows.editing">
                         <md-icon><workflow-icon rep="item.icon"></workflow-icon></md-icon>
                         <p>{{item.name}}</p>
-                        <md-switch ng-model="item.enabled" aria-label="Enable Workflow" class="md-secondary"></md-switch>
+                        <%# <md-switch ng-model="item.enabled" aria-label="Enable Workflow" class="md-secondary"></md-switch>%>
                     </md-list-item>
                     <md-divider></md-divider>
                     <md-subheader class="md-no-sticky">Credentials</md-subheader>
@@ -56,6 +56,10 @@
                         </md-button>
                     </md-list-item>
                     <md-divider></md-divider>
+                    <md-list-item ng-click="alert('settings')">
+                        <md-icon md-svg-icon="settings"></md-icon>
+                        <p>Devices</p>
+                    </md-list-item>
                     <md-list-item ng-click="alert('settings')">
                         <md-icon md-svg-icon="settings"></md-icon>
                         <p>Settings</p>
@@ -72,24 +76,18 @@
                             <label>Name</label>
                             <input ng-model="ctrlEditor.workflows.built[ctrlEditor.workflows.editing].name" type="text">
                         </md-input-container>
-                        <icon-selector icon="ctrlEditor.workflows.built[ctrlEditor.workflows.editing].icon"></icon-selector>
-                        <!-- <md-input-container>
-                            <label>Icon</label>
-                            <input ng-model="ctrlEditor.workflows.built[ctrlEditor.workflows.editing].icon" type="text">
-                        </md-input-container> -->
+                        <icon-selector icon="ctrlEditor.workflows.built[ctrlEditor.workflows.editing].icon" style="margin-left: 10px;"></icon-selector>
                     </md-content>
                     <div layout="row">
                         <div ng-repeat="type in ['source', 'logic', 'endpoint']" layout="row">
-                            <div layout="column">
-                                <span flex></span>
-                                <div ng-if="type === 'source'">When</div>
-                                <div ng-if="type === 'logic'">if</div>
-                                <div ng-if="type === 'endpoint'">do</div>
+                            <div layout="row">
+                                <div ng-if="type === 'source'" style="margin: auto;">When</div>
+                                <div ng-if="type === 'logic'" style="margin: auto;">do</div>
+                                <div ng-if="type === 'endpoint'" style="margin: auto;">to</div>
                                 <md-icon md-svg-src="arrow-right" style="height: 18px;"></md-icon>
-                                <span flex></span>
                             </div>
                             <div layout="column">
-                                <md-list-item style="height: 20px; flex: 0">
+                                <%# <md-list-item style="height: 20px; flex: 0">
                                     <md-icon md-svg-icon="magnify"></md-icon>
                                     <p>
                                         <md-input-container>
@@ -97,15 +95,26 @@
                                             <input ng-model="search[type]" type="text">
                                         </md-input-container>
                                     </p>
-                                </md-list-item>
-                                <md-list ng-cloak>
+                                </md-list-item>%>
+                                <form name="userForm">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>{{type | capitalize}}</label>
+                                        <md-select ng-model="options[type].value">
+                                            <md-option ng-repeat="node in ctrlEditor.workflows.parts[type + 's'] | orderBy: 'name'" value="{{node.id}}">
+                                                <md-icon><workflow-icon rep="node.icon"></workflow-icon></md-icon>
+                                                {{node.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </form>
+                                <%# <md-list ng-cloak>
                                     <md-subheader class="md-no-sticky">{{type | capitalize}}</md-subheader>
                                     <md-list-item ng-repeat="node in ctrlEditor.workflows.parts[type + 's'] | orderBy: 'name'" ng-hide="search[type] && node.name.toLowerCase().indexOf(search[type].toLowerCase()) < 0" ng-click="assign(type, node.id)" ng-selected="node.id === ctrlEditor.workflows.built[ctrlEditor.workflows.editing][type]">
                                         <md-icon><workflow-icon rep="node.icon"></workflow-icon></md-icon>
                                         <p>{{node.name}}</p>
                                         <simple-node-editor node="node"></simple-node-editor>
                                     </md-list-item>
-                                </md-list>
+                                </md-list>%>
                             </div>
                         </div>
                     </div>

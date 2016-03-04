@@ -524,10 +524,10 @@ var ngApp;
             scope: {icon: '=icon'},
             template: function () {
                 var html = '<div layout="row">' +
-                        '<workflow-icon rep="icon"></workflow-icon>' +
+                        '<workflow-icon rep="icon" style="padding: 2px 2px 26px;"></workflow-icon>' +
                         '<md-input-container>' +
                             '<label>Icon</label>' +
-                            '<input ng-model="icon.icon" type="text" />' +
+                            '<input ng-model="icon.icon" type="text" style="width: 100px;" />' +
                         '</md-input-container>' +
                     '</div>';
 
